@@ -1,3 +1,6 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { ContactMethod } from '@/types';
 
 interface ContactProps {
@@ -5,9 +8,11 @@ interface ContactProps {
 }
 
 export default function Contact({ methods }: ContactProps) {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="contact-section">
-      <h2 className="section-title">Let&apos;s Work Together</h2>
+      <h2 className="section-title">{t.contact.title}</h2>
       <div className="contact-container">
         <div className="contact-methods">
           {methods.map((method) => (
@@ -19,8 +24,8 @@ export default function Contact({ methods }: ContactProps) {
             >
               <i className={method.icon} />
               <div>
-                <h4>{method.title}</h4>
-                <p>{method.description}</p>
+                <h4>{t.contact[method.title.toLowerCase() as 'email' | 'linkedin' | 'github'] || method.title}</h4>
+                <p>{method.description === 'Connect with me' ? t.contact.connectMe : method.description === 'Check my repositories' ? t.contact.checkRepos : method.description}</p>
               </div>
             </a>
           ))}

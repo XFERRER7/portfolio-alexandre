@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import BlackHole from '@/components/BlackHole';
 import Hero from '@/components/Hero';
@@ -18,16 +19,17 @@ import {
   useRippleEffect,
 } from '@/hooks/useAnimations';
 import type { SocialLink, Project, SkillCategory, ContactMethod } from '@/types';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const socialLinks: SocialLink[] = [
   {
     icon: 'bx bxl-github',
-    link: 'https://github.com/Alexandrex77',
+    link: 'https://github.com/XFERRER7',
     label: 'GitHub',
   },
   {
     icon: 'bx bxl-linkedin-square',
-    link: 'https://www.linkedin.com/in/Alexandre-de-carvalho-Alexandre Talles-3891a7390/',
+    link: 'https://www.linkedin.com/in/alexandre-talles-b662a020b/',
     label: 'LinkedIn',
   },
 ];
@@ -54,7 +56,7 @@ const projects: Project[] = [
     description:
       'SaaS para o setor automotivo focado em consulta e gestão de informações relacionadas a câmbios automáticos. Inclui um dashboard completo para administração de dados e usuários. Participei de todas as etapas do desenvolvimento; projeto com ~8 meses e cerca de 90% concluído.',
     tags: ['Next.js', 'Drizzle', 'Docker', 'PostgreSQL'],
-    link: ['https://auto-app-latest.vercel.app/'],
+    link: ['https://www.gtsolucoes.group/'],
     logo: 'GT',
   },
   {
@@ -159,15 +161,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container">
-      <Header socialLinks={socialLinks} />
-      <BlackHole />
-      <Hero />
-      <About />
-      <Projects projects={projects} />
-      <Skills categories={skillCategories} />
-      <Contact methods={contactMethods} />
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="container">
+        <Header socialLinks={socialLinks} />
+        <BlackHole />
+        <Hero />
+        <About />
+        <Projects projects={projects} />
+        <Skills categories={skillCategories} />
+        <Contact methods={contactMethods} />
+        <Footer />
+        <LanguageSwitcher />
+      </div>
+    </LanguageProvider>
   );
 }

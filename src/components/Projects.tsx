@@ -1,3 +1,6 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { Project } from '@/types';
 import Link from 'next/link';
 
@@ -6,13 +9,13 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects }: ProjectsProps) {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" className="projects-section">
-      <h2 className="section-title">
-        Projetos Destaque
-      </h2>
+      <h2 className="section-title">{t.projects.title}</h2>
       <div className="projects-grid featured-single">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <div key={project.title} className="project-card">
             <div className="project-image">
               <div className="project-placeholder">
@@ -25,19 +28,19 @@ export default function Projects({ projects }: ProjectsProps) {
             <div className="project-content">
               <h3>
                 {
-                  project.title.split(' ')[1].length <= 2 ?
+                  project.title.split(' ')[1]?.length <= 2 ?
                     null :
                     project.title.split(' ')[0]
                 }{' '}
                 <span className="gradient">
                   {
-                    project.title.split(' ')[1].length <= 2 ?
+                    project.title.split(' ')[1]?.length <= 2 ?
                       project.title :
                       project.title.split(' ').slice(1).join(' ')
                   }
                 </span>
               </h3>
-              <p>{project.description}</p>
+              <p>{t.projects.projects[index]?.description || project.description}</p>
               <div className="project-tags">
                 {project.tags.map((tag) => (
                   <span key={tag} className="tag">
@@ -49,7 +52,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 project.link.length > 0 && (
                   <div className='flex gap-3 items-center flex-wrap mt-4'>
                     {
-                      project.link.map((link, index) => (
+                      project.link.map((link) => (
                         <Link key={link} href={link} className="project-link" target='_blank'>
                           <i className="bx bx-link-external" /> 
                           {link}
