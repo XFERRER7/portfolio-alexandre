@@ -105,6 +105,174 @@ nav ul li a.active {
   color: var(--primary-color);
 }
 
+/* Language Switcher Floating Button */
+.language-switcher-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lang-toggle-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.lang-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lang-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+}
+
+.lang-toggle-btn:hover::before {
+  opacity: 1;
+}
+
+.lang-toggle-btn.open {
+  transform: rotate(180deg);
+}
+
+.lang-toggle-btn .current-flag {
+  font-size: 1.5rem;
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+.lang-toggle-btn i {
+  font-size: 1.6rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.lang-toggle-btn:hover .current-flag {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lang-toggle-btn:hover i {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.lang-toggle-btn.open .current-flag {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.lang-toggle-btn.open i {
+  opacity: 1;
+  transform: scale(1) rotate(-180deg);
+}
+
+/* Language Options */
+.lang-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lang-options.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.2rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 50px;
+  cursor: pointer;
+  color: var(--text-color);
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: scale(0.8) translateY(10px);
+}
+
+.lang-options.visible .lang-option {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.lang-option:hover {
+  transform: scale(1.05) translateX(-5px);
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+}
+
+.lang-option.active {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+.option-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.option-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .language-switcher-container {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .lang-toggle-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .lang-option {
+    padding: 0.6rem 1rem;
+  }
+}
+
 .box-icons {
   display: flex;
   gap: 1.5rem;

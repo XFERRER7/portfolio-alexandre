@@ -1,3 +1,6 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { Project } from '@/types';
 import Link from 'next/link';
 
@@ -6,11 +9,11 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects }: ProjectsProps) {
+  const { t } = useLanguage();
+
   return (
     <section id="projects" className="projects-section">
-      <h2 className="section-title">
-        Projetos Destaque
-      </h2>
+      <h2 className="section-title">{t.projects.title}</h2>
       <div className="projects-grid featured-single">
         {projects.map((project) => (
           <div key={project.title} className="project-card">

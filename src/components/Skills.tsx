@@ -1,3 +1,6 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { SkillCategory } from '@/types';
 
 interface SkillsProps {
@@ -5,9 +8,11 @@ interface SkillsProps {
 }
 
 export default function Skills({ categories }: SkillsProps) {
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="skills-section">
-      <h2 className="section-title">Skills &amp; Expertise</h2>
+      <h2 className="section-title">{t.skills.title}</h2>
       <div className="skills-container">
         {categories.map((category) => (
           <div key={category.title} className="skills-category">

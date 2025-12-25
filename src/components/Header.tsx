@@ -1,3 +1,6 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { SocialLink } from '@/types';
 
 interface HeaderProps {
@@ -5,6 +8,8 @@ interface HeaderProps {
 }
 
 export default function Header({ socialLinks }: HeaderProps) {
+  const { t } = useLanguage();
+
   return (
     <header>
       <div className="left">
@@ -13,16 +18,16 @@ export default function Header({ socialLinks }: HeaderProps) {
       <nav>
         <ul>
           <li>
-            <a href="#about">About</a>
+            <a href="#about">{t.header.about}</a>
           </li>
           <li>
-            <a href="#skills">Skills</a>
+            <a href="#skills">{t.header.skills}</a>
           </li>
           <li>
-            <a href="#projects">Projects</a>
+            <a href="#projects">{t.header.projects}</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact">{t.header.contact}</a>
           </li>
         </ul>
       </nav>

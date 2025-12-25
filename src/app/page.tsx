@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import BlackHole from '@/components/BlackHole';
 import Hero from '@/components/Hero';
@@ -9,6 +10,7 @@ import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 import {
   useScrollEffects,
   useSmoothScroll,
@@ -159,15 +161,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="container">
-      <Header socialLinks={socialLinks} />
-      <BlackHole />
-      <Hero />
-      <About />
-      <Projects projects={projects} />
-      <Skills categories={skillCategories} />
-      <Contact methods={contactMethods} />
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="container">
+        <Header socialLinks={socialLinks} />
+        <BlackHole />
+        <Hero />
+        <About />
+        <Projects projects={projects} />
+        <Skills categories={skillCategories} />
+        <Contact methods={contactMethods} />
+        <Footer />
+        <LanguageSwitcher />
+      </div>
+    </LanguageProvider>
   );
 }

@@ -1,26 +1,28 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
+
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="hero">
       <div className="hero-content">
         <div className="hero-badge">
           <i className="bx bxl-sketch" />
-          <span>Desenvolvedor de Software</span>
+          <span>{t.hero.badge}</span>
         </div>
         <h1>
-          Olá, sou o <span className="gradient">Alexandre</span>
+          {t.hero.greeting} <span className="gradient">Alexandre</span>
         </h1>
-        <h2>
-          Construindo soluções digitais inovadoras
-        </h2>
-        <p>
-          Sou desenvolvedor de software com forte experiência em desenvolvimento web e criação de aplicativos híbridos. Atuo de ponta a ponta no ciclo do produto: levantamento e refinamento de requisitos, implementação, implantação e deploy em produção.
-        </p>
+        <h2>{t.hero.tagline}</h2>
+        <p>{t.hero.description}</p>
         <div className="hero-buttons">
           <a href="#contact" className="btn btn-primary">
-            <i className="bx bx-send" /> Entrar em Contato
+            <i className="bx bx-send" /> {t.hero.contactBtn}
           </a>
           <a href="#projects" className="btn btn-secondary">
-            <i className="bx bx-briefcase" /> Ver Projetos
+            <i className="bx bx-briefcase" /> {t.hero.projectsBtn}
           </a>
         </div>
       </div>
