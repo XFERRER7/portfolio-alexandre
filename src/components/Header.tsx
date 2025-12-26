@@ -11,6 +11,7 @@ interface HeaderProps {
 export default function Header({ socialLinks }: HeaderProps) {
   const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -27,6 +28,37 @@ export default function Header({ socialLinks }: HeaderProps) {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['about', 'skills', 'projects', 'contact'];
+      const scrollPosition = window.scrollY + 200;
+
+      // Se estiver no topo da página, não marcar nenhuma seção
+      if (window.scrollY < 100) {
+        setActiveSection('');
+        return;
+      }
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetBottom = offsetTop + element.offsetHeight;
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActiveSection(section);
+            return;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <header>
@@ -39,16 +71,40 @@ export default function Header({ socialLinks }: HeaderProps) {
         <nav className={isMenuOpen ? 'mobile-open' : ''}>
           <ul>
             <li>
-              <a href="#about" onClick={closeMenu}>{t.header.about}</a>
+              <a 
+                href="#about" 
+                onClick={closeMenu}
+                className={activeSection === 'about' ? 'active' : ''}
+              >
+                {t.header.about}
+              </a>
             </li>
             <li>
-              <a href="#skills" onClick={closeMenu}>{t.header.skills}</a>
+              <a 
+                href="#skills" 
+                onClick={closeMenu}
+                className={activeSection === 'skills' ? 'active' : ''}
+              >
+                {t.header.skills}
+              </a>
             </li>
             <li>
-              <a href="#projects" onClick={closeMenu}>{t.header.projects}</a>
+              <a 
+                href="#projects" 
+                onClick={closeMenu}
+                className={activeSection === 'projects' ? 'active' : ''}
+              >
+                {t.header.projects}
+              </a>
             </li>
             <li>
-              <a href="#contact" onClick={closeMenu}>{t.header.contact}</a>
+              <a 
+                href="#contact" 
+                onClick={closeMenu}
+                className={activeSection === 'contact' ? 'active' : ''}
+              >
+                {t.header.contact}
+              </a>
             </li>
           </ul>
         </nav>
