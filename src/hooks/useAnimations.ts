@@ -6,8 +6,6 @@ export function useScrollEffects() {
   useEffect(() => {
     const headerEl = document.querySelector('header');
     const videoEl = document.querySelector('.blackhole-box video') as HTMLVideoElement | null;
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>('nav ul li a');
-    const sections = document.querySelectorAll<HTMLElement>('section[id]');
 
     const handleScroll = () => {
       const currentScroll = window.pageYOffset;
@@ -18,34 +16,6 @@ export function useScrollEffects() {
         } else {
           headerEl.classList.remove('scrolled');
         }
-      }
-
-      const scrollPosition = window.scrollY + 150;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      if (windowHeight + window.scrollY >= documentHeight - 100) {
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#contact') {
-            link.classList.add('active');
-          }
-        });
-      } else {
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-          const sectionId = section.getAttribute('id');
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            navLinks.forEach((link) => {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === `#${sectionId}`) {
-                link.classList.add('active');
-              }
-            });
-          }
-        });
       }
 
       if (videoEl) {

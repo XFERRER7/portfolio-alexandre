@@ -6,12 +6,13 @@ import type { SocialLink } from '@/types';
 
 interface HeaderProps {
   socialLinks: SocialLink[];
+  isPageReady?: boolean;
 }
 
-export default function Header({ socialLinks }: HeaderProps) {
+export default function Header({ socialLinks, isPageReady = true }: HeaderProps) {
   const { t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -29,16 +30,21 @@ export default function Header({ socialLinks }: HeaderProps) {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    // Só executar a lógica de scroll quando a página estiver pronta
+    if (!isPageReady) return;
+
     const handleScroll = () => {
       const sections = ['about', 'skills', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
 
-      // Se estiver no topo da página, não marcar nenhuma seção
-      if (window.scrollY < 100) {
-        setActiveSection('');
+      // Se estiver no topo da página (hero section), marcar 'home'
+      if (window.scrollY < window.innerHeight * 0.5) {
+        setActiveSection('home');
         return;
       }
 
+      // Encontrar qual seção está ativa
+      let currentSection = 'home';
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -46,22 +52,26 @@ export default function Header({ socialLinks }: HeaderProps) {
           const offsetBottom = offsetTop + element.offsetHeight;
 
           if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section);
-            return;
+            currentSection = section;
+            break;
           }
         }
       }
+
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial position
+    // Executar imediatamente quando a página estiver pronta
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isPageReady]);
 
   return (
     <>
       <header>
+        
         <div className="left">
           <h1>Alexandre Talles</h1>
         </div>
@@ -70,6 +80,15 @@ export default function Header({ socialLinks }: HeaderProps) {
         </button>
         <nav className={isMenuOpen ? 'mobile-open' : ''}>
           <ul>
+            <li>
+              <a 
+                href="#" 
+                onClick={closeMenu}
+                className={activeSection === 'home' ? 'active' : ''}
+              >
+                {t.header.home}
+              </a>
+            </li>
             <li>
               <a 
                 href="#about" 

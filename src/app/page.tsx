@@ -188,7 +188,7 @@ export default function Home() {
         </div>
       )}
       <div className={`container ${isLoading ? 'hidden' : 'visible'}`}>
-        <Header socialLinks={socialLinks} />
+        <Header socialLinks={socialLinks} isPageReady={!isLoading} />
         <BlackHole onLoad={handleBlackHoleLoad} />
         <Hero />
         <About />

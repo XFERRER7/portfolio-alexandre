@@ -1,6 +1,7 @@
 export const translations = {
   pt: {
     header: {
+      home: 'Início',
       about: 'Sobre',
       skills: 'Habilidades',
       projects: 'Projetos',
@@ -91,6 +92,7 @@ export const translations = {
   },
   en: {
     header: {
+      home: 'Home',
       about: 'About',
       skills: 'Skills',
       projects: 'Projects',
@@ -181,6 +183,7 @@ export const translations = {
   },
   es: {
     header: {
+      home: 'Inicio',
       about: 'Acerca',
       skills: 'Habilidades',
       projects: 'Proyectos',
