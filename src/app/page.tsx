@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import Header from '@/components/Header';
 import BlackHole from '@/components/BlackHole';
@@ -149,6 +149,8 @@ const contactMethods: ContactMethod[] = [
 ];
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  
   useScrollEffects();
   useSmoothScroll();
   useIntersectionAnimations();
@@ -156,15 +158,38 @@ export default function Home() {
   useButtonEffects();
   useRippleEffect();
 
+  const handleBlackHoleLoad = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+      document.body.classList.add('loaded');
+    }, 500);
+  };
+
   useEffect(() => {
-    document.body.classList.add('loaded');
-  }, []);
+    // Fallback: se o vídeo não carregar em 5 segundos, mostra a página mesmo assim
+    const timeout = setTimeout(() => {
+      if (isLoading) {
+        setIsLoading(false);
+        document.body.classList.add('loaded');
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [isLoading]);
 
   return (
     <LanguageProvider>
-      <div className="container">
+      {isLoading && (
+        <div className="loading-screen">
+          <div className="loading-content">
+            <div className="loading-spinner"></div>
+            <h2 className="loading-text">Carregando...</h2>
+          </div>
+        </div>
+      )}
+      <div className={`container ${isLoading ? 'hidden' : 'visible'}`}>
         <Header socialLinks={socialLinks} />
-        <BlackHole />
+        <BlackHole onLoad={handleBlackHoleLoad} />
         <Hero />
         <About />
         <Projects projects={projects} />
