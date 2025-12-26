@@ -18,7 +18,7 @@ export default function Hero() {
         <h2>{t.hero.tagline}</h2>
         <p>{t.hero.description}</p>
         <div className="hero-buttons">
-          <a href="#contact" className="btn btn-primary">
+          <a href="#contact" className="btn btn-primary mx-auto">
             <i className="bx bx-send" /> {t.hero.contactBtn}
           </a>
           <a href="#projects" className="btn btn-secondary">
